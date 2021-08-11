@@ -1,6 +1,4 @@
 //Business Logic-------------
-wordCounter("hi there 77 19");
-
 function wordCounter(text) {
   if (text.trim().length === 0) {
     return 0;
@@ -15,10 +13,8 @@ function wordCounter(text) {
   return wordCount;
 }
 
-numberOfOccurrencesInText("red", "red blue red red red green");
-
 function numberOfOccurrencesInText(word, text) {
-  if (text.trim().length === 0) {
+  if ((text.trim().length === 0) || (word.trim().length === 0)) {
     return 0;
   }
   const wordArray = text.split(" ");
@@ -30,3 +26,20 @@ function numberOfOccurrencesInText(word, text) {
   });
   return wordCount;
 }
+
+// User Interface Logic--------------
+function boldPassage(word, text) {
+  return "<p>" + text + "</p>"
+}
+
+$(document).ready(function() {
+  $("form#word-counter").submit(function(event) {
+    event.preventDefault();
+    const passage = $("#text-passage").val();
+    const word = $("#word").val();
+    const wordCount = wordCounter(passage);
+    const occurrenceOfWord = numberOfOccurrencesInText(word, passage);
+    $("#total-count").html(wordCount);
+    $("#selected-count").html(occurrenceOfWord);
+  });
+});
